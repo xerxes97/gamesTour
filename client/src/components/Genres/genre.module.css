@@ -1,0 +1,8 @@
+.genre__image{
+    max-width: 200px;
+}
+
+.presentation{
+    display: flex;
+    flex-wrap: wrap;
+}

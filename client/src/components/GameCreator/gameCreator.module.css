@@ -1,0 +1,11 @@
+.lists{
+    background-color: red;
+    width:  200px;
+    height: 150px;
+    overflow: scroll;
+    cursor: pointer;
+}
+
+.item:hover{
+    background-color: aqua;
+}

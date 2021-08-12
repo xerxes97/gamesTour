@@ -1,10 +1,50 @@
+import React from 'react';
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import Home from './components/Home/Home';
+import LoadingHome from './components/LoadingPage/LoadingHome';
+import Nav from './components/Nav/Nav';
+import Details from './components/GameDetails/Details'
+import Creator from './components/GameCreator/Creator'
+import Favorites from './components/Favorites/Favorites';
+import Match from './components/noMatch/Match';
+import Footer from './components/Footer/Footer';
+
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Videogames</h1>
-    </div>
+    <React.Fragment>
+      <Switch>
+        <Route exact path='/'>
+          <LoadingHome/>
+        </Route>
+        <Route path='/home'>
+          <Nav/>
+          <Home/>
+          <Footer/>
+        </Route>
+        <Route path='/details/:id'>
+          <Nav/>
+          <Details/>
+          <Footer/>
+        </Route>
+        <Route path='/addGame'>
+          <Nav/>
+          <Creator/>
+          <Footer/>
+        </Route>
+        <Route path='/favorites'>
+          <Nav/>
+          <Favorites/>
+          <Footer/>
+        </Route>
+        <Route path='*'>
+          <Nav/>
+          <Match/>
+          <Footer/>
+        </Route>
+      </Switch>
+    </React.Fragment>
   );
 }
 

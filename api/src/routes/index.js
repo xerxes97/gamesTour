@@ -5,61 +5,67 @@ const {Videogame, Genre} = require('../db');
 const axios = require('axios')
 const {API_KEY} = process.env;
 const router = Router();
+const {Op} = require('sequelize')
 let prueba=0;
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.get('/videogames', (req, res, next)=>{
+router.get('/videogames', async(req, res, next)=>{
 
     let {search} = req.query;
-    let resultsApi = axios.get(`https://rawg.io/api/games?page_size=100&key=${API_KEY}`);
+    let resultsApi = [
+        await axios.get(`https://rawg.io/api/games?page=1&key=${API_KEY}`),
+        await axios.get(`https://rawg.io/api/games?page=2&key=${API_KEY}`),
+        await axios.get(`https://rawg.io/api/games?page=3&key=${API_KEY}`),
+        await axios.get(`https://rawg.io/api/games?page=4&key=${API_KEY}`),
+        await axios.get(`https://rawg.io/api/games?page=5&key=${API_KEY}`)
+    ]
     let resultLocalPromise = Videogame.findAll({include:Genre});
     
     if (!search) {
-    
         return Promise.all([resultsApi, resultLocalPromise])
         .then(results=>{
-            console.log(results[1])
 
             var resultLocal= results[1];
-            var resultApi= results[0].data.results
+            var resultApi= [...results[0][0].data.results, ...results[0][1].data.results, ...results[0][2].data.results, ...results[0][3].data.results, ...results[0][4].data.results]
     
             resultLocal = resultLocal.map(game=>{
                 return{
                     id: game.id,
                     name: game.name,
                     image: game.image ? game.image : 'Imagen de prueba',
+                    release: game.release,
                     rating: game.rating,
                     genres: game.genres
                 }
             })
             
-    
             resultApi = resultApi.map(game=>{
                 return{
                     id: game.id,
                     name: game.name,
                     image: game.background_image,
+                    release: game.released,
                     rating: game.rating,
                     genres: game.genres
                 }
             })
-    
+            let prueba = resultLocal.concat(resultApi)
             res.send(resultLocal.concat(resultApi))
         })
         
     } else {
         resultsApi = axios.get(`https://rawg.io/api/games?search=${search}&page_size=15&key=${API_KEY}`);
         let resultLocalPromise = Videogame.findAll({
-            name:{$like:`%${search}%`},
-            attributes:{
-                include: ['Genre']
-            }
+            where:{
+                name:{[Op.like]: `%${search}%`}
+            },
+            include: Genre
         });
 
         return Promise.all([resultsApi, resultLocalPromise])
         .then(results=>{
-            console.log(results[1])
+
             var resultLocal= results[1];
             var resultApi= results[0].data.results
     
@@ -68,8 +74,9 @@ router.get('/videogames', (req, res, next)=>{
                     id: game.id,
                     name: game.name,
                     image: game.image ? game.image : 'Imagen de prueba',
+                    release: game.release,
                     rating: game.rating,
-                    genres: game.gen
+                    genres: game.genres
                 }
             })
             
@@ -79,6 +86,7 @@ router.get('/videogames', (req, res, next)=>{
                     id: game.id,
                     name: game.name,
                     image: game.background_image,
+                    release: game.released,
                     rating: game.rating,
                     genres: game.genres
                 }
@@ -120,7 +128,7 @@ router.get('/videogames/:id', async(req, res)=>{
         })
 
     }else{
-        console.log(id)
+
         let localGame = await Videogame.findAll({
             where:{
                 id: id
@@ -134,6 +142,31 @@ router.get('/videogames/:id', async(req, res)=>{
 router.get('/genres', async(req, res)=>{
     let genres= await Genre.findAll()
     res.json(genres)
+})
+
+router.get('/platforms', async(req, res)=>{
+    // await axios.get(`https://api.rawg.io/api/platforms?page=1&key=${API_KEY}`)
+    // .then(platforms=>res.json(platforms.data.results))
+
+    let apiPlatforms =[
+        await axios.get(`https://api.rawg.io/api/platforms?page=1&key=${API_KEY}`),
+        await axios.get(`https://api.rawg.io/api/platforms?page=2&key=${API_KEY}`)]
+
+    let total= Promise.all([apiPlatforms])
+    .then((results)=>{
+
+        let platformsResults=[...results[0][0].data.results, ...results[0][1].data.results]
+
+        platformsResults.map(platform=>{
+            return{
+                id: platform.id,
+                name: platform.name,
+            }
+        })
+
+        res.json(platformsResults)
+        
+    })
 })
 
 module.exports = router;
