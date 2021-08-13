@@ -9,6 +9,7 @@ import Creator from './components/GameCreator/Creator'
 import Favorites from './components/Favorites/Favorites';
 import Match from './components/noMatch/Match';
 import Footer from './components/Footer/Footer';
+import Visual from './components/Visual/Visual';
 
 
 function App() {
@@ -31,6 +32,11 @@ function App() {
         <Route path='/addGame'>
           <Nav/>
           <Creator/>
+          <Footer/>
+        </Route>
+        <Route path='/games'>
+          <Nav/>
+          <Visual/>
           <Footer/>
         </Route>
         <Route path='/favorites'>

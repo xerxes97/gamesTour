@@ -11,8 +11,9 @@ let prueba=0;
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 router.get('/videogames', async(req, res, next)=>{
-
+    console.log('prueba')
     let {search} = req.query;
+    console.log(search)
     let resultsApi = [
         await axios.get(`https://rawg.io/api/games?page=1&key=${API_KEY}`),
         await axios.get(`https://rawg.io/api/games?page=2&key=${API_KEY}`),
@@ -120,9 +121,10 @@ router.post('/videogame', async(req, res)=>{
 
 router.get('/videogames/:id', async(req, res)=>{
     let {id} = req.params;
+    console.log(req)
     if(Number.isInteger(parseInt(id.substr(0,1)))){
-
-        axios.get(`https://rawg.io/api/games?id=${id}&key=${API_KEY}`)
+        let prueba= parseInt(id)
+        await axios.get(`https://rawg.io/api/games?id=${prueba}&key=${API_KEY}`)
         .then(results=>{
             res.json(results.data.results)
         })

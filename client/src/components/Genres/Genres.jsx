@@ -17,7 +17,7 @@ function Genres({value, state, getGenres}){
                 {
                     state.length>0 ? state.map(genre=><li key={genre.id}>
                         <Link to='#'>
-                            <span>{genre.name}</span>
+                            <span>{genre.name}</span><br/>
                             <img className={styles.genre__image} src={genre.image} alt={genre.name} />
                             </Link>
                     </li>)

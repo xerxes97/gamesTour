@@ -1,7 +1,9 @@
+import {connect} from 'react-redux'
 import {useState} from 'react'
-import {NavLink} from 'react-router-dom'
+import {Link ,NavLink} from 'react-router-dom'
+import Visual from '../Visual/Visual'
 
-export default function Nav(){
+function Nav(){
 
     const[onsearch, inSearch] = useState({
         search:''
@@ -15,13 +17,14 @@ export default function Nav(){
     }
 
     function searching(){
+
     }
 
     return(
         <div>
             <img src="imagen" alt="" />
             <input name='search' onChange={handleChange} value={onsearch.search} type="text" id="" />
-            <button onClick={()=>searching} type='submit'>Buscar</button>
+            <button onClick={searching} type='submit'><Link to={`/games?search=${onsearch.search}`}>Buscar</Link></button>
             <ul>
                 <NavLink activeClassName='prueba' to='/home'>
                     <li>Home</li>
@@ -36,3 +39,7 @@ export default function Nav(){
         </div>
     )
 }
+
+
+
+export default connect(null, null)(Nav)

@@ -5,19 +5,29 @@ export const GET_GENRES = 'GET_GENRES';
 export const DETAIL_GAME = 'DETAIL_GAME';
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const CREATE_GAME = 'CREATE_GAME';
-export const GET_IDGAME = 'GET_IDGAME';
 export const GET_NAMEGAME = 'GET_NAMEGAME';
 export const GET_PLATFOMRS = 'GET_PLATFOMRS'
 
-export const getGames = ()=>{
+export const getGames = (search)=>{
     
-    return function(dispatch){
-        return axios.get('http://localhost:3001/videogames')
-        .then(games=>{
-            dispatch({
-                type: GET_GAMES, payload: games
+    if(!search){
+        return function(dispatch){
+            return axios.get('http://localhost:3001/videogames')
+            .then(games=>{
+                dispatch({
+                    type: GET_GAMES, payload: games
+                })
             })
-        })
+        }
+    }else{
+        return function(dispatch){
+            return axios.get(`http://localhost:3001/videogames?search=${search}`)
+            .then(games=>{
+                dispatch({
+                    type: GET_GAMES, payload: games
+                })
+            })
+        }
     }
 
 }
@@ -47,13 +57,31 @@ export const getPlatforms = ()=>{
 }
 
 export const createGame= (game)=>{
-    console.log(game)
     return function(dispatch){
         return axios.post('http://localhost:3001/videogame', game)
         .then(results=>{
             dispatch({
                 type:CREATE_GAME
             })
+        })
+    }
+}
+
+export const getGamesxName=(search)=>{
+    return function(dispatch){
+        return axios.get(`/videogames?search=${search}`)
+        .then(games=>{
+            dispatch({type: GET_NAMEGAME, payload: games})
+        })
+    }
+}
+
+export const getGameDetails=(id)=>{
+    console.log('por aqui'+id)
+    return function(dispatch){
+        return axios.get(`/videogames/:${id}`)
+        .then(game=>{
+            dispatch({type: DETAIL_GAME, payload: game})
         })
     }
 }
