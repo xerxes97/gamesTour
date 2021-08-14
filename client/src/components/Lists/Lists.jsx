@@ -46,11 +46,15 @@ function Lists({value, state, getGames}){
 
     return(
         <div>
-            <h3>{value}</h3>
+            <h3>{value==='Descubre Nuevos Juegos'?
+        <Link to='/games'>{value}</Link>    
+        :
+        value
+        }</h3>
             <ul className={styles.presentation}>
             {
                 state.length>0 ? mostrario.map(game=><li key={game.id}><Link to={`/details/${game.id}`}>
-                    <span>{game.name}</span>
+                    <span>{game.name}</span><br/>
                     <img className={styles.lists__image} src={game.image} alt={game.name} />
                     </Link>
                 </li>)

@@ -121,12 +121,11 @@ router.post('/videogame', async(req, res)=>{
 
 router.get('/videogames/:id', async(req, res)=>{
     let {id} = req.params;
-    console.log(req)
-    if(Number.isInteger(parseInt(id.substr(0,1)))){
-        let prueba= parseInt(id)
-        await axios.get(`https://rawg.io/api/games?id=${prueba}&key=${API_KEY}`)
+    console.log(id)
+    if(Number.isInteger(parseInt(id))){
+        axios.get(`https://rawg.io/api/games/${id}?key=${API_KEY}`)
         .then(results=>{
-            res.json(results.data.results)
+            return res.json(results.data)
         })
 
     }else{

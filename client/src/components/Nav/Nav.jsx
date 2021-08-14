@@ -24,7 +24,7 @@ function Nav(){
         <div>
             <img src="imagen" alt="" />
             <input name='search' onChange={handleChange} value={onsearch.search} type="text" id="" />
-            <button onClick={searching} type='submit'><Link to={`/games?search=${onsearch.search}`}>Buscar</Link></button>
+            <button onClick={searching} type='submit'><Link to={`/gameSearch?search=${onsearch.search}`}>Buscar</Link></button>
             <ul>
                 <NavLink activeClassName='prueba' to='/home'>
                     <li>Home</li>

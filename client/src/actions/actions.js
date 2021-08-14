@@ -69,7 +69,7 @@ export const createGame= (game)=>{
 
 export const getGamesxName=(search)=>{
     return function(dispatch){
-        return axios.get(`/videogames?search=${search}`)
+        return axios.get(`http://localhost:3001/videogames?search=${search}`)
         .then(games=>{
             dispatch({type: GET_NAMEGAME, payload: games})
         })
@@ -79,7 +79,7 @@ export const getGamesxName=(search)=>{
 export const getGameDetails=(id)=>{
     console.log('por aqui'+id)
     return function(dispatch){
-        return axios.get(`/videogames/:${id}`)
+        return axios.get(`http://localhost:3001/videogames/${id}`)
         .then(game=>{
             dispatch({type: DETAIL_GAME, payload: game})
         })

@@ -10,6 +10,7 @@ import Favorites from './components/Favorites/Favorites';
 import Match from './components/noMatch/Match';
 import Footer from './components/Footer/Footer';
 import Visual from './components/Visual/Visual';
+import VisualSearch from './components/VisualSearch/VisualSearch';
 
 
 function App() {
@@ -37,6 +38,11 @@ function App() {
         <Route path='/games'>
           <Nav/>
           <Visual/>
+          <Footer/>
+        </Route>
+        <Route path='/gameSearch'>
+          <Nav/>
+          <VisualSearch/>
           <Footer/>
         </Route>
         <Route path='/favorites'>
