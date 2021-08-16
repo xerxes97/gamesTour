@@ -45,21 +45,31 @@ function Lists({value, state, getGames}){
     }
 
     return(
-        <div>
-            <h3>{value==='Descubre Nuevos Juegos'?
-        <Link to='/games'>{value}</Link>    
+        <div className={styles.lists__container}>
+            <h3 className={styles.text}>{value==='Descubre Nuevos Juegos'?
+        <Link className={styles.text} to='/games'>{value}</Link>    
         :
         value
         }</h3>
             <ul className={styles.presentation}>
             {
-                state.length>0 ? mostrario.map(game=><li key={game.id}><Link to={`/details/${game.id}`}>
-                    <span>{game.name}</span><br/>
-                    <img className={styles.lists__image} src={game.image} alt={game.name} />
+                state.length>0 ? mostrario.map(game=><li className={styles.listGames} key={game.id}><Link className={styles.link} to={`/details/${game.id}`}>
+                    <div className={styles.contentGame}>
+                        <span className={styles.name}>{game.name}</span><br/>
+                        <img className={styles.lists__image} src={game.image} alt={game.name} />
+                        <div>
+                            {state.length>0?
+                            game.genres.map(genre=><span id={genre.id}>{'*'+genre.name+' '}</span>)
+                            :
+                            <span>No disponible</span>
+                            }
+                        </div>
+                        
+                    </div>
                     </Link>
                 </li>)
                 :
-                <h1>x</h1>
+                <h1>CARGANDO...</h1>
             }
             </ul>
 

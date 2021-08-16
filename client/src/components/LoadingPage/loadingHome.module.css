@@ -1,0 +1,37 @@
+.background{
+    height: 100vh;
+    background-image: url(../Resources/images/background.gif);
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+}
+
+.img, .start{
+    display: block;
+    margin: auto;
+}
+
+.img{
+    width: 400px;
+}
+
+.start{
+    cursor: pointer;
+    font-size: 50px;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 10px;
+    border: none;
+    animation: start 3s infinite;
+}
+.link{
+    text-decoration: none;
+}
+
+@keyframes start{
+    40%{color: white;}
+    50%{opacity: 0;}
+    60%{opacity: 1;}
+    100%{color: black;}
+}

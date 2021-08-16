@@ -1,7 +1,8 @@
 import {connect} from 'react-redux'
 import {useState} from 'react'
 import {Link ,NavLink} from 'react-router-dom'
-import Visual from '../Visual/Visual'
+import styles from './nav.module.css'
+import img from '../Resources/images/gamesTourNav.png'
 
 function Nav(){
 
@@ -21,21 +22,25 @@ function Nav(){
     }
 
     return(
-        <div>
-            <img src="imagen" alt="" />
-            <input name='search' onChange={handleChange} value={onsearch.search} type="text" id="" />
-            <button onClick={searching} type='submit'><Link to={`/gameSearch?search=${onsearch.search}`}>Buscar</Link></button>
-            <ul>
-                <NavLink activeClassName='prueba' to='/home'>
-                    <li>Home</li>
-                </NavLink>
-                <NavLink activeClassName='prueba' to='/favorites'>
-                    <li>Favorites</li>
-                </NavLink>
-                <NavLink activeClassName='prueba' to='/addGame'>
-                    <li>Add Game</li>
-                </NavLink>
-            </ul>
+        <div className={styles.nav__container}>
+            <div className={styles.nav__logo}>
+                <img className={styles.img} src={img} alt="" />
+                <input className={styles.search} name='search' onChange={handleChange} value={onsearch.search} type="text" id="" />
+                <button className={styles.btn} onClick={searching} type='submit'><Link className={styles.lupa} to={`/gameSearch?search=${onsearch.search}`}><i class="fas fa-search"    ></i></Link></button>
+            </div>
+            <div>
+                <ul className={styles.nav__options}>
+                    <NavLink activeClassName={styles.active} className={styles.link} to='/home'>
+                        <li><i class="fas fa-puzzle-piece"></i> Home</li>
+                    </NavLink>
+                    {/* <NavLink activeClassName='prueba' to='/favorites'>
+                        <li>Favorites</li>
+                    </NavLink> */}
+                    <NavLink activeClassName={styles.active} className={styles.link} to='/addGame'>
+                        <li><i class="fab fa-pushed"></i> Add Game</li>
+                    </NavLink>
+                </ul>
+            </div>
         </div>
     )
 }

@@ -5,4 +5,46 @@
 .presentation{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.lists__container{
+    font-family: 'Bahianita', cursive;
+    color: black;
+    font-size: 30px;
+}
+
+.text{
+    text-decoration: none;
+    color: black;
+    margin: 0px;
+    padding: 0px 0px 0px 18px;
+}
+
+.listGames{
+    list-style: none;
+}
+
+.link{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.contentGame{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 210px;
+    height: 230px;
+    align-items: center;
+    border: 1px solid black;
+    margin-top: 20px;
+    border-radius: 15px 0px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contentGame:hover{
+    box-shadow: 5px 10px 18px #888888;
 }

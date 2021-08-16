@@ -1,11 +1,95 @@
 .lists{
-    background-color: red;
     width:  200px;
-    height: 150px;
-    overflow: scroll;
+    height: 95px;
+    overflow: auto;
     cursor: pointer;
+    list-style: none;
+    padding: 0px;
+}
+
+.lists::-webkit-scrollbar{
+    width: 10px;
+}
+
+.lists::-webkit-scrollbar-thumb{
+    background: #59421a;
+    border-radius: 5px;
+    transition: 1s;
+}
+
+.lists::-webkit-scrollbar-thumb:hover{
+    background: #cb3535;
+}
+
+.lists::-webkit-scrollbar-track{
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 5px;
+
 }
 
 .item:hover{
-    background-color: aqua;
+    background-color: #888888;
+}
+
+.form{
+    text-align: center;
+    margin: auto;
+    width: 75%;
+    min-width: 500px;
+    max-width: 600px;
+    font-family: 'Bahianita', cursive;
+    background-color: #b6b6e6;
+    border-radius: 10px;
+}
+
+.title{
+    height: 45px;
+    text-align: center;
+    font-family: 'Bahianita', cursive;
+}
+
+.input1{
+    width: 300px;
+    margin-right: 50px;
+}
+
+.input2{
+    width: 50px;
+}
+
+.input3{
+    width: 410px;
+    margin-top: 10px;
+    resize: none;
+    overflow: auto;
+}
+
+.content__lists{
+    width: 450px;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.submitBtn{
+    margin: 20px 0px 50px 0px;
+    font-family: 'Bahianita', cursive;
+    font-size: 20px;
+    width: 120px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    transition: 0.3s all;
+}
+
+.submitBtn:hover{
+    background-color: black;
+    color: white;
+}
+
+.input1, .input2, .input3{
+    outline: none;
 }

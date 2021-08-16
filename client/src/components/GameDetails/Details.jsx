@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import {connect} from 'react-redux'
 import {useParams} from 'react-router-dom'
 import { getGameDetails } from '../../actions/actions';
+import styles from './details.module.css'
 
 function Details({state, getGameDetails}){
     
@@ -11,12 +12,15 @@ function Details({state, getGameDetails}){
         getGameDetails(id)
     },[id])
     console.log(state)
+
     return(
-        <div>{state ?
+        <div className={styles.contentDetails}>{state ?
             <div>
+                <div>
                 <h1>{state.name}</h1>
-                <span>{state.rating}</span>
-                <img src={state.background_image} alt="" />
+                <span><i class="fas fa-star"></i>{state.rating}</span>
+                </div>
+                <img className={styles.img} src={state.background_image} alt="" />
                 <p>{state.description_raw}</p>
                 <span>Genres</span>
                 <p>{state.genres ?
