@@ -22,8 +22,8 @@ function Visual({state, genres, getGenres}){
 
     const displayGames = games.slice(pageVisited, pageVisited + gamesPerPage).map(game=>{
         return(
-            games.length>0 ? <div key={game.id}>
-                <Link id={game.id} to={`/details/${game.id}`}>
+            games.length>0 ? <div className={styles.game} id={game.id}>
+                <Link className={styles.link} to={`/details/${game.id}`}>
                     <span>{game.name}</span><br/>
                     <img className={styles.lists__image} src={game.image} alt={game.name} />
                 </Link>
@@ -42,7 +42,6 @@ function Visual({state, genres, getGenres}){
     }
 
     function order(e){
-        console.log(e.target.id)
         let btn=document.getElementById(e.target.id)
         let dic=btn.textContent
         let aux={}
@@ -50,7 +49,6 @@ function Visual({state, genres, getGenres}){
         if(e.target.name==='down'){
             btn.setAttribute('name','up')
             let order=[...games]
-            console.log(order[1].name)
             for (let i = 0; i < order.length; i++) {
                 for (let j = 0; j < order.length-1; j++) {
                     if (order[j][dic]>order[j+1][dic]) {
@@ -65,7 +63,6 @@ function Visual({state, genres, getGenres}){
         } else{
             btn.setAttribute('name','down')
             let order=[...games]
-            console.log(order[1].name)
             for (let i = 0; i < order.length; i++) {
                 for (let j = 0; j < order.length-1; j++) {
                     if (order[j][dic]<order[j+1][dic]) {
@@ -81,12 +78,9 @@ function Visual({state, genres, getGenres}){
     }
 
     function filterGenre(name){
-        console.log(name)
         let order=[...state]
         let gamesFiltered= []
-        console.log(order)
         for (let i = 0; i < order.length; i++) {
-            console.log(order[i])
             for (let j = 0; j < order[i].genres.length; j++) {                
                 if (order[i].genres[j].name===name) {
                     gamesFiltered.push(order[i])
@@ -98,34 +92,37 @@ function Visual({state, genres, getGenres}){
     }
 
     return(
-        <div id='visual'>
+        <div className={styles.visual}>
+            <span>Order by:</span>
             <button id='orderName' name='up' onClick={order}>name</button>
             <button id='orderRating' name='up' onClick={order}>rating</button>
             <button id='orderRelease' name='up' onClick={order}>release</button>
-
-            <div>
-                <h4>Genres</h4>
-                <ul>
-                    {
-                        genres.map(genre=>
-                            <li id={genre.id} onClick={()=>filterGenre(genre.name)}>{genre.name}</li>
-                        )
-                    }
-                </ul>
+            <div className={styles.page}>
+                <div>
+                    <h4 className={styles.title}>Filter by Genres</h4>
+                    <ul className={styles.filterGenres}>
+                        {
+                            genres.map(genre=>
+                                <li className={styles.genre} id={genre.id} onClick={()=>filterGenre(genre.name)}>{genre.name}</li>
+                            )
+                        }
+                    </ul>
+                </div>
+                <div className={styles.games}>
+                    {displayGames}
+                </div>
             </div>
 
-            {displayGames}
-
             <ReactPaginate
-                previousLabel={'Previous'}
-                nextLabel={'Next'}
+                previousLabel={<i class="fas fa-chevron-left"></i>}
+                nextLabel={<i class="fas fa-chevron-right"></i>}
                 pageCount={pageCount}
                 onPageChange={changePage}
                 containerClassName={styles.paginationBtn}
                 previousLinkClassName={'previousBtn'}
                 nextLinkClassName={'nextBtn'}
                 disabledClassName={'paginationDisabled'}
-                activeClassName={'paginationActive'}
+                activeClassName={styles.paginationActive}
             />
         </div>
     )

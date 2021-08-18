@@ -42,6 +42,11 @@ function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
             gen:[],
             platforms: ''
         })
+
+        setInternal({
+            generos:[],
+            plataformas:[]
+        })
     }
 
     function handleChange(e){

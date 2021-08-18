@@ -81,6 +81,7 @@ export const getGameDetails=(id)=>{
     return function(dispatch){
         return axios.get(`http://localhost:3001/videogames/${id}`)
         .then(game=>{
+            console.log(game)
             dispatch({type: DETAIL_GAME, payload: game})
         })
     }

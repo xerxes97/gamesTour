@@ -13,22 +13,23 @@ function VisualSearch({state, getGames}){
     },[prueba])
 
     return(
-        <div>
-            <h1>{prueba ? prueba.toLocaleUpperCase()
+        <div className={styles.visual}>
+            {/* <h1>{prueba ? prueba.toLocaleUpperCase()
             :
             <p></p>
-            }</h1>
-            <ul>
+            }</h1> */}
+            <h1>Searching: {prueba && prueba.toLocaleUpperCase()}</h1>
+            <div className={styles.list}>
                 {
-                    state.length>0 ? state.map(game=><li key={game.id}><Link to={`/details/${game.id}`}>
+                    state.length>0 ? state.map(game=><div className={styles.game} key={game.id}><Link to={`/details/${game.id}`}>
                     <span>{game.name}</span><br/>
                     <img className={styles.lists__image} src={game.image} alt={game.name} />
                     </Link>
-                </li>)
+                </div>)
                 :
-                <h1>x</h1>
+                <h1>Cargando...</h1>
                 }
-            </ul>
+            </div>
         </div>
     )
 }

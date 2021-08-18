@@ -1,8 +1,38 @@
 .lists__image{
     max-width: 200px;
+    max-height: 170px;
 }
 
 .presentation{
     display: flex;
     flex-wrap: wrap;
+}
+
+.visual{
+    font-family: 'Bahianita', cursive;
+    width: 90%;
+    margin: auto;
+}
+
+.list{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.game{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 210px;
+    height: 185px;
+    margin-left: 5px;
+    margin-top: 15px;
+    border: 1px solid black;
+    border-radius: 15px 0px;
+    transition: 0.3s;
+}
+
+.game:hover{
+    box-shadow: 5px 10px 18px #888888;
 }

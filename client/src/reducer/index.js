@@ -1,4 +1,4 @@
-import {GET_GAMES, GET_GENRES, DETAIL_GAME, GET_FAVORITES, GET_NAMEGAME, GET_PLATFOMRS} from '../actions/actions'
+import {GET_GAMES, GET_GENRES, DETAIL_GAME, GET_NAMEGAME, GET_PLATFOMRS} from '../actions/actions'
 
 const initialState={
     games: [],
@@ -42,6 +42,13 @@ function rootReducer(state = initialState, action){
         }
 
         case DETAIL_GAME:{
+            console.log(action.payload.data)
+            if(Array.isArray(action.payload.data)){
+                return{
+                    ...state,
+                    gameDetails:action.payload.data[0]
+                }
+            }
             return{
                 ...state,
                 gameDetails:action.payload.data

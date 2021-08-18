@@ -1,0 +1,17 @@
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: 50px 0px 0px 0px;
+    align-items: center;
+    padding-bottom: 10px;
+    background-color: #e0e0e0;
+    font-family: 'Bahianita', cursive;
+}
+
+.known{
+    text-align: center;
+}
+.icon{
+    font-size: 30px;
+}

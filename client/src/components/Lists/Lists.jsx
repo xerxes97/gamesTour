@@ -47,7 +47,7 @@ function Lists({value, state, getGames}){
     return(
         <div className={styles.lists__container}>
             <h3 className={styles.text}>{value==='Descubre Nuevos Juegos'?
-        <Link className={styles.text} to='/games'>{value}</Link>    
+        <Link className={styles.text} to='/games'>{value+' '}<span className={styles.start}><i class="fas fa-play"></i></span></Link>    
         :
         value
         }</h3>

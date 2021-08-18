@@ -25,8 +25,8 @@ function Nav(){
         <div className={styles.nav__container}>
             <div className={styles.nav__logo}>
                 <img className={styles.img} src={img} alt="" />
-                <input className={styles.search} name='search' onChange={handleChange} value={onsearch.search} type="text" id="" />
-                <button className={styles.btn} onClick={searching} type='submit'><Link className={styles.lupa} to={`/gameSearch?search=${onsearch.search}`}><i class="fas fa-search"    ></i></Link></button>
+                <input className={styles.search} autoComplete='off' name='search' onChange={handleChange} value={onsearch.search} type="text" id="" />
+                <button className={styles.btn} onClick={searching} type='submit'><Link className={styles.lupa} to={`/gameSearch?search=${onsearch.search}`}><i class="fab fa-searchengin"></i></Link></button>
             </div>
             <div>
                 <ul className={styles.nav__options}>

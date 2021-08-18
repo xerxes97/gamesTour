@@ -11,28 +11,27 @@ function Details({state, getGameDetails}){
     useEffect(()=>{
         getGameDetails(id)
     },[id])
-    console.log(state)
 
     return(
         <div className={styles.contentDetails}>{state ?
             <div>
                 <div>
                 <h1>{state.name}</h1>
-                <span><i class="fas fa-star"></i>{state.rating}</span>
+                <span><span className={styles.star}><i class="fas fa-star"></i></span>{state.rating}</span>
                 </div>
-                <img className={styles.img} src={state.background_image} alt="" />
-                <p>{state.description_raw}</p>
-                <span>Genres</span>
-                <p>{state.genres ?
+                <img className={styles.img} src={state.background_image || state.image} alt="" />
+                <p className={styles.text}>{state.description_raw || state.description}</p>
+                <span className={styles.bold}>Genres</span>
+                <p className={styles.text}>{state.genres ?
                 state.genres.map(genre=>genre.name).join(', ')                
                 :
                 <span>cargando</span>
                 }</p>
-                <span>Platforms</span>
-                <p>{ state.platforms ?
-                state.platforms.map(platform=>platform.platform.name)    
+                <span className={styles.bold}>Platforms</span>
+                <p className={styles.text}>{ state.platforms && Array.isArray(state.platforms)?
+                state.platforms.map(platform=>platform.platform.name).join(', ')   
                 :
-                <span>Cargando</span>
+                <span>{state.platforms}</span>
             }</p>
             </div>            
             :
