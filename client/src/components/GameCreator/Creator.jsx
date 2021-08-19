@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { useEffect } from 'react'
 import { getPlatforms, getGenres, createGame } from '../../actions/actions'
 import styles from './gameCreator.module.css'
+import validate from './validator'
 
 function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
 
@@ -13,17 +14,10 @@ function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
         release: '',
         rating: '',
         gen:[],
-        platforms: ''
+        platforms: []
     })
 
-    const[internal, setInternal] = useState({
-        generos:[],
-        plataformas:[]
-    })
-    
-    // const[err, setErr] = useState({
-    //     error: ''
-    // })
+    const[Errors, setError] = useState({})
 
     useEffect(()=>{
         getPlatforms()
@@ -40,12 +34,7 @@ function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
             release: '',
             rating: '',
             gen:[],
-            platforms: ''
-        })
-
-        setInternal({
-            generos:[],
-            plataformas:[]
+            platforms: []
         })
     }
 
@@ -54,55 +43,69 @@ function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
             ...input,
             [e.target.name]:e.target.value
           })
+
+        setError(validate({
+            ...input,
+            [e.target.name]:e.target.value
+        }))
     }
 
-    function addGenre(id, generos){
-        if (!input.gen.includes(id)) {
+    function addGenre(genero){
+        delete Errors.gen
+        if (!input.gen.map(gen=>gen.id===genero.id).includes(true)) {
             setInput({
                 ...input,
-                gen: [...input.gen, id]
-            })
-            setInternal({
-                ...internal,
-                generos: [...internal.generos, generos]
+                gen: [...input.gen, genero]
             })
         }
     }
 
-    function addPlatform(name){
-        if (!input.platforms.includes(name)) {
+    function addPlatform(platform){
+        delete Errors.platforms
+        if (!input.platforms.map(plat=>plat.id===platform.id).includes(true)) {
             setInput({
                 ...input,
-                platforms: input.platforms+=name+' '
-            })
-            setInternal({
-                ...internal,
-                plataformas: [...internal.plataformas, name]
+                platforms: [...input.platforms, platform]
             })
         }
     }
+
+    function removeGenre(genre){
+        setInput({
+            ...input,
+            gen: input.gen.filter(gen=>gen.id!==genre.id)
+        })
+    }
+
+    function removePlatform(platform){
+        setInput({
+            ...input,
+            platforms: input.platforms.filter(plat=>plat.id!==platform.id)
+        })
+    }
+
 
     return(
         <div>
             <form className={styles.form} action="" onSubmit={handleSubmit}>
                 <h1 className={styles.title}>{input.name.toLocaleUpperCase()}</h1>
-                <input className={styles.input1} placeholder='Tittle' value={input.name} onChange={handleChange} type="text" name="name" id="" />
-                <input className={styles.input2} placeholder='Rating' value={input.rating} onChange={handleChange} type="text" name="rating" id="" /><br/>
-                <input className={styles.input3} placeholder='URL Image' value={input.image} onChange={handleChange} type="text" name="image" id="" /><br/>
-                <textarea className={styles.input3} placeholder='Here you can describe your game 😊' value={input.description} onChange={handleChange} name="description" id="" cols="30" rows="10"></textarea><br/>
+                <input className={`${styles.input1} ${Errors.name && styles.danger}`} placeholder='Tittle' value={input.name} onChange={handleChange} type="text" name="name" />
+                <input className={`${styles.input2} ${Errors.rating && styles.danger}`} placeholder='Rating' value={input.rating>5? 5 : input.rating<0? 0 : input.rating} onChange={handleChange} type="text" name="rating" /><br/>
+                <input className={styles.input3} placeholder='URL Image' value={input.image} onChange={handleChange} type="text" name="image" /><br/>
+                <textarea className={styles.input3} placeholder='Here you can describe your game 😊' value={input.description} onChange={handleChange} name="description" cols="30" rows="10"></textarea><br/>
                 <label htmlFor="">Release date{"\u00a0 \u00a0 \u00a0"}</label>
-                <input value={input.release} onChange={handleChange} type="date" name="release" id="" /><br/>
+                <input value={input.release} onChange={handleChange} type="date" name="release" /><br/>
                 <label htmlFor="">Genres</label><br/>
                 <div className={styles.content__lists}>
                     <ul className={styles.lists}>
                         {
-                            genres.map(genre=><li className={styles.item} onClick={()=>addGenre(genre.id, genre.name)} key={genre.id}>{genre.name}</li>)
+                            genres.map(genre=><li className={styles.item} onClick={()=>addGenre(genre)} key={genre.id}>{genre.name}</li>)
                         }
                     </ul>
-                    <ul className={styles.lists}>
+                    <ul onChange={handleChange} className={styles.lists} name='gen'>
                         {
-                            internal.generos.length>0?
-                            internal.generos.map(gen=><li>{gen}</li>)
+                            input.gen.length>0?
+                            input.gen.map(gen=><li className={styles.itemx} onClick={()=>removeGenre(gen)} key={gen.id}>{gen.name}</li>)
                             :
                             <li></li>
                         }
@@ -112,19 +115,32 @@ function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
                 <div className={styles.content__lists}>
                     <ul className={styles.lists}>
                         {
-                            platforms.map(platform=><li className={styles.item} onClick={()=>addPlatform(platform.name)} key={platform.id}>{platform.name}</li>)
+                            platforms.map(platform=><li className={styles.item} onClick={()=>addPlatform(platform)} key={platform.id}>{platform.name}</li>)
                         }
                     </ul>
                     <ul className={styles.lists}>
                         {
-                            internal.plataformas.length>0?
-                            internal.plataformas.map(gen=><li>{gen}</li>)
+                            input.platforms.length>0?
+                            input.platforms.map(platform=><li className={styles.itemx} onClick={()=>removePlatform(platform)} key={platform.id}>{platform.name}</li>)
                             :
                             <li></li>
                         }
                     </ul>
                 </div>
-                <button className={styles.submitBtn} type="submit">CrearJuego</button>
+                <div className={styles.errors}>
+                        {
+                            Object.keys(Errors).length>0?
+                            Object.keys(Errors).map(err=><span key={err}>{Errors[err]}<br/></span>)
+                            :
+                            input.gen.length===0?
+                            Errors.gen='Faltan los generos 😓'
+                            :
+                            input.platforms.length===0?
+                            Errors.platforms='Las plataformas y terminamos 😍'
+                            :
+                            <button className={styles.submitBtn} type="submit">CrearJuego</button>
+                        }
+                </div>
             </form>
         </div>
     )

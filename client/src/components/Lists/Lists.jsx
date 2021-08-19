@@ -59,7 +59,7 @@ function Lists({value, state, getGames}){
                         <img className={styles.lists__image} src={game.image} alt={game.name} />
                         <div>
                             {state.length>0?
-                            game.genres.map(genre=><span id={genre.id}>{'*'+genre.name+' '}</span>)
+                            game.genres.map(genre=><span key={genre.id}>{'*'+genre.name+' '}</span>)
                             :
                             <span>No disponible</span>
                             }

@@ -12,7 +12,6 @@ let prueba=0;
 // Ejemplo: router.use('/auth', authRouter);
 router.get('/videogames', async(req, res, next)=>{
     let {search} = req.query;
-    console.log(search)
     let resultsApi = [
         await axios.get(`https://rawg.io/api/games?page=1&key=${API_KEY}`),
         await axios.get(`https://rawg.io/api/games?page=2&key=${API_KEY}`),
@@ -23,149 +22,171 @@ router.get('/videogames', async(req, res, next)=>{
     let resultLocalPromise = Videogame.findAll({include:Genre});
     
     if (!search) {
-        return Promise.all([resultsApi, resultLocalPromise])
-        .then(results=>{
-
-            var resultLocal= results[1];
-            var resultApi= [...results[0][0].data.results, ...results[0][1].data.results, ...results[0][2].data.results, ...results[0][3].data.results, ...results[0][4].data.results]
+        try {
+            return Promise.all([resultsApi, resultLocalPromise])
+            .then(results=>{
     
-            resultLocal = resultLocal.map(game=>{
-                return{
-                    id: game.id,
-                    name: game.name,
-                    image: game.image ? game.image : 'Imagen de prueba',
-                    release: game.release,
-                    rating: game.rating,
-                    genres: game.genres
-                }
-            })
-            
-            resultApi = resultApi.map(game=>{
-                return{
-                    id: game.id,
-                    name: game.name,
-                    image: game.background_image,
-                    release: game.released,
-                    rating: game.rating,
-                    genres: game.genres
-                }
-            })
-            let prueba = resultLocal.concat(resultApi)
-            res.send(resultLocal.concat(resultApi))
-        })
+                var resultLocal= results[1];
+                var resultApi= [...results[0][0].data.results, ...results[0][1].data.results, ...results[0][2].data.results, ...results[0][3].data.results, ...results[0][4].data.results]
+        
+                resultLocal = resultLocal.map(game=>{
+                    return{
+                        id: game.id,
+                        name: game.name,
+                        image: game.image ? game.image : 'Imagen de prueba',
+                        release: game.release,
+                        rating: game.rating,
+                        genres: game.genres
+                    }
+                })
+                
+                resultApi = resultApi.map(game=>{
+                    return{
+                        id: game.id,
+                        name: game.name,
+                        image: game.background_image,
+                        release: game.released,
+                        rating: game.rating,
+                        genres: game.genres
+                    }
+                })
+                let prueba = resultLocal.concat(resultApi)
+                res.send(resultLocal.concat(resultApi))
+            })            
+        } catch (error) {
+            next(error)
+        }
         
     } else {
-        resultsApi = axios.get(`https://rawg.io/api/games?search=${search}&page_size=15&key=${API_KEY}`);
-        let resultLocalPromise = Videogame.findAll({
-            where:{
-                name:{[Op.like]: `%${search}%`}
-            },
-            include: Genre
-        });
 
-        return Promise.all([resultsApi, resultLocalPromise])
-        .then(results=>{
-
-            var resultLocal= results[1];
-            var resultApi= results[0].data.results
+        try {
+            resultsApi = axios.get(`https://rawg.io/api/games?search=${search}&page_size=15&key=${API_KEY}`);
+            let resultLocalPromise = Videogame.findAll({
+                where:{
+                    name:{[Op.like]: `%${search}%`}
+                },
+                include: Genre
+            });
     
-            resultLocal = resultLocal.map(game=>{
-                return{
-                    id: game.id,
-                    name: game.name,
-                    image: game.image ? game.image : 'Imagen de prueba',
-                    release: game.release,
-                    rating: game.rating,
-                    genres: game.genres
-                }
-            })
-            
+            return Promise.all([resultsApi, resultLocalPromise])
+            .then(results=>{
     
-            resultApi = resultApi.map(game=>{
-                return{
-                    id: game.id,
-                    name: game.name,
-                    image: game.background_image,
-                    release: game.released,
-                    rating: game.rating,
-                    genres: game.genres
-                }
-            })
-            res.send(resultLocal.concat(resultApi))
-        })
+                var resultLocal= results[1];
+                var resultApi= results[0].data.results
         
+                resultLocal = resultLocal.map(game=>{
+                    return{
+                        id: game.id,
+                        name: game.name,
+                        image: game.image ? game.image : 'Imagen de prueba',
+                        release: game.release,
+                        rating: game.rating,
+                        genres: game.genres
+                    }
+                })
+                
+        
+                resultApi = resultApi.map(game=>{
+                    return{
+                        id: game.id,
+                        name: game.name,
+                        image: game.background_image,
+                        release: game.released,
+                        rating: game.rating,
+                        genres: game.genres
+                    }
+                })
+                res.send(resultLocal.concat(resultApi))
+            })                        
+        } catch (error) {
+            next(error)
+        }        
     }    
 
 
 })
 
-router.post('/videogame', async(req, res)=>{
-    let {name, image, description, release, gen, rating, platforms} = req.body
-    prueba+=1
-    let newGame= await Videogame.create({
-        id: 'A'+prueba,
-        name: name,
-        image: image,
-        description: description,
-        release: release,
-        rating: rating,
-        platforms: platforms
-    })
-
-    let game = await newGame.addGenres(gen)
-
-    res.send(newGame);
+router.post('/videogame', async(req, res, next)=>{
+    try {
+        let {name, image, description, release, gen, rating, platforms} = req.body
+        prueba+=1
+        let newGame= await Videogame.create({
+            id: 'A'+prueba,
+            name: name,
+            image: image,
+            description: description,
+            release: release,
+            rating: rating,
+            platforms: platforms
+        })
+    
+        let game = await newGame.addGenres(gen)
+    
+        res.send(newGame);
+    } catch (error) {
+        next(error)
+    }
     // res.json('Creado')
 })
 
-router.get('/videogames/:id', async(req, res)=>{
-    let {id} = req.params;
-    if(Number.isInteger(parseInt(id))){
-        axios.get(`https://rawg.io/api/games/${id}?key=${API_KEY}`)
-        .then(results=>{
-            return res.json(results.data)
-        })
-
-    }else{
-
-        let localGame = await Videogame.findAll({
-            where:{
-                id: id
-            },
-            include: Genre
-        })
-        res.json(localGame);
+router.get('/videogames/:id', async(req, res, next)=>{
+    try {
+        let {id} = req.params;
+        if(Number.isInteger(parseInt(id))){
+            axios.get(`https://rawg.io/api/games/${id}?key=${API_KEY}`)
+            .then(results=>{
+                return res.json(results.data)
+            })
+    
+        }else{
+    
+            let localGame = await Videogame.findAll({
+                where:{
+                    id: id
+                },
+                include: Genre
+            })
+            res.json(localGame);
+        }        
+    } catch (error) {
+        next(error)
     }
 })
 
-router.get('/genres', async(req, res)=>{
-    let genres= await Genre.findAll()
-    res.json(genres)
+router.get('/genres', async(req, res, next)=>{
+    try {
+        let genres= await Genre.findAll()
+        res.json(genres)        
+    } catch (error) {
+        next(error)
+    }
 })
 
 router.get('/platforms', async(req, res)=>{
-    // await axios.get(`https://api.rawg.io/api/platforms?page=1&key=${API_KEY}`)
-    // .then(platforms=>res.json(platforms.data.results))
-
-    let apiPlatforms =[
-        await axios.get(`https://api.rawg.io/api/platforms?page=1&key=${API_KEY}`),
-        await axios.get(`https://api.rawg.io/api/platforms?page=2&key=${API_KEY}`)]
-
-    let total= Promise.all([apiPlatforms])
-    .then((results)=>{
-
-        let platformsResults=[...results[0][0].data.results, ...results[0][1].data.results]
-
-        platformsResults.map(platform=>{
-            return{
-                id: platform.id,
-                name: platform.name,
-            }
+    try {
+        let apiPlatforms =[
+            await axios.get(`https://api.rawg.io/api/platforms?page=1&key=${API_KEY}`),
+            await axios.get(`https://api.rawg.io/api/platforms?page=2&key=${API_KEY}`)]
+    
+        let total= Promise.all([apiPlatforms])
+        .then((results)=>{
+    
+            let platformsResults=[...results[0][0].data.results, ...results[0][1].data.results]
+    
+            platformsResults.map(platform=>{
+                return{
+                    id: platform.id,
+                    name: platform.name,
+                }
+            })
+    
+            res.json(platformsResults)
+            
         })
-
-        res.json(platformsResults)
         
-    })
+    } catch (error) {
+        next(error)
+    }
 })
 
 module.exports = router;

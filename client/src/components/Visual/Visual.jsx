@@ -41,6 +41,10 @@ function Visual({state, genres, getGenres}){
         setPageNumber(selected);
     }
 
+    function clear(){
+        setGames(state);
+    }
+
     function order(e){
         let btn=document.getElementById(e.target.id)
         let dic=btn.textContent
@@ -78,6 +82,10 @@ function Visual({state, genres, getGenres}){
     }
 
     function filterGenre(name){
+        setPageNumber(0)
+        let prop=document.getElementsByClassName('Visual_paginationActive__2LiLI')[0]
+        prop && prop.classList.remove('Visual_paginationActive__2LiLI')
+
         let order=[...state]
         let gamesFiltered= []
         for (let i = 0; i < order.length; i++) {
@@ -97,6 +105,8 @@ function Visual({state, genres, getGenres}){
             <button id='orderName' name='up' onClick={order}>name</button>
             <button id='orderRating' name='up' onClick={order}>rating</button>
             <button id='orderRelease' name='up' onClick={order}>release</button>
+            <button id='clean' onClick={clear}>Clean</button>
+
             <div className={styles.page}>
                 <div>
                     <h4 className={styles.title}>Filter by Genres</h4>

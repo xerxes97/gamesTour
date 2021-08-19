@@ -58,6 +58,11 @@ export const getPlatforms = ()=>{
 
 export const createGame= (game)=>{
     return function(dispatch){
+        let letra = game.name.trim()[0].toUpperCase()
+        game.name=game.name.slice(1)
+        game.name=letra+game.name
+        game.gen=game.gen.map(gen=>gen.id)
+        game.platforms=game.platforms.map(platform=>platform.name).join(' ')
         return axios.post('http://localhost:3001/videogame', game)
         .then(results=>{
             dispatch({
