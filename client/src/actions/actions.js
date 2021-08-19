@@ -6,7 +6,8 @@ export const DETAIL_GAME = 'DETAIL_GAME';
 export const GET_FAVORITES = 'GET_FAVORITES';
 export const CREATE_GAME = 'CREATE_GAME';
 export const GET_NAMEGAME = 'GET_NAMEGAME';
-export const GET_PLATFOMRS = 'GET_PLATFOMRS'
+export const GET_PLATFOMRS = 'GET_PLATFOMRS';
+export const GET_GAMES_SEARCH = 'GET_GAMES_SEARCH'
 
 export const getGames = (search)=>{
     
@@ -24,7 +25,7 @@ export const getGames = (search)=>{
             return axios.get(`http://localhost:3001/videogames?search=${search}`)
             .then(games=>{
                 dispatch({
-                    type: GET_GAMES, payload: games
+                    type: GET_GAMES_SEARCH, payload: games
                 })
             })
         }

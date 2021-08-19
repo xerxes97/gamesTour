@@ -14,10 +14,6 @@ function VisualSearch({state, getGames}){
 
     return(
         <div className={styles.visual}>
-            {/* <h1>{prueba ? prueba.toLocaleUpperCase()
-            :
-            <p></p>
-            }</h1> */}
             <h1>Searching: {prueba && prueba.toLocaleUpperCase()}</h1>
             <div className={styles.list}>
                 {
@@ -36,7 +32,7 @@ function VisualSearch({state, getGames}){
 
 function MapStateToProps(state){
     return{
-        state:state.games
+        state:state.gamesSearch
     }
 }
 
