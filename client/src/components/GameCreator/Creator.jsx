@@ -84,7 +84,6 @@ function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
         })
     }
 
-
     return(
         <div>
             <form className={styles.form} action="" onSubmit={handleSubmit}>

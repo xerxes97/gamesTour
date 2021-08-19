@@ -26,18 +26,18 @@ function Nav(){
             <div className={styles.nav__logo}>
                 <img className={styles.img} src={img} alt="" />
                 <input className={styles.search} autoComplete='off' name='search' onChange={handleChange} value={onsearch.search} type="text" id="" />
-                <button className={styles.btn} onClick={searching} type='submit'><Link className={styles.lupa} to={`/gameSearch?search=${onsearch.search}`}><i class="fab fa-searchengin"></i></Link></button>
+                <button className={styles.btn} onClick={searching} type='submit'><Link className={styles.lupa} to={`/gameSearch?search=${onsearch.search}`}><i className="fab fa-searchengin"></i></Link></button>
             </div>
             <div>
                 <ul className={styles.nav__options}>
                     <NavLink activeClassName={styles.active} className={styles.link} to='/home'>
-                        <li><i class="fas fa-puzzle-piece"></i> Home</li>
+                        <li><i className="fas fa-puzzle-piece"></i> Home</li>
                     </NavLink>
                     {/* <NavLink activeClassName='prueba' to='/favorites'>
                         <li>Favorites</li>
                     </NavLink> */}
                     <NavLink activeClassName={styles.active} className={styles.link} to='/addGame'>
-                        <li><i class="fab fa-pushed"></i> Add Game</li>
+                        <li><i className="fab fa-pushed"></i> Add Game</li>
                     </NavLink>
                 </ul>
             </div>

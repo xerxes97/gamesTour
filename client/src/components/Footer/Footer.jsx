@@ -10,12 +10,12 @@ export default function Footer(){
             </div>
             <div>
                 <div className={styles.known}>
-                    <a  className={styles.icon} href=""><i class="fab fa-linkedin"></i></a><br />
-                    <span><a href="">LinkedIn</a></span>
+                    <a  className={styles.icon} href="https://www.linkedin.com/in/cristian-quevedo/"><i className="fab fa-linkedin"></i></a><br />
+                    <span><a href="https://www.linkedin.com/in/cristian-quevedo/">LinkedIn</a></span>
                 </div>
                 <div className={styles.known}>
-                    <a className={styles.icon} href=""><i class="fab fa-github"></i></a><br />
-                    <span><a href="">GitHub</a></span>
+                    <a className={styles.icon} href="https://github.com/xerxes97/gamesTour"><i className="fab fa-github"></i></a><br />
+                    <span><a href="https://github.com/xerxes97/gamesTour">GitHub</a></span>
                 </div>
             </div>
         </div>

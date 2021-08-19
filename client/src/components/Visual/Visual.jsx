@@ -124,8 +124,8 @@ function Visual({state, genres, getGenres}){
             </div>
 
             <ReactPaginate
-                previousLabel={<i class="fas fa-chevron-left"></i>}
-                nextLabel={<i class="fas fa-chevron-right"></i>}
+                previousLabel={<i className="fas fa-chevron-left"></i>}
+                nextLabel={<i className="fas fa-chevron-right"></i>}
                 pageCount={pageCount}
                 onPageChange={changePage}
                 containerClassName={styles.paginationBtn}

@@ -1,0 +1,10 @@
+.img{
+    max-width: 100%;
+    margin: auto;
+    display: block;
+}
+
+.text{
+    text-align: center;
+    font-family: 'Bahianita', cursive;
+}

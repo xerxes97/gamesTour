@@ -59,8 +59,10 @@ export const getPlatforms = ()=>{
 export const createGame= (game)=>{
     return function(dispatch){
         let letra = game.name.trim()[0].toUpperCase()
+        let image = game.image==='' ? 'http://imagenesgamers.canalrcn.com/ImgTodoGamers/bomberman_retro_0.jpg': game.image 
         game.name=game.name.slice(1)
         game.name=letra+game.name
+        game.image=image
         game.gen=game.gen.map(gen=>gen.id)
         game.platforms=game.platforms.map(platform=>platform.name).join(' ')
         return axios.post('http://localhost:3001/videogame', game)

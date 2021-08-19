@@ -8,6 +8,8 @@ function Details({state, getGameDetails}){
     
     let {id} = useParams();
 
+    console.log(state)
+
     useEffect(()=>{
         getGameDetails(id)
     },[id])
@@ -17,7 +19,7 @@ function Details({state, getGameDetails}){
             <div>
                 <div>
                 <h1>{state.name}</h1>
-                <span><span className={styles.star}><i class="fas fa-star"></i></span>{state.rating}</span>
+                <span><span className={styles.star}><i className="fas fa-star"></i></span>{state.rating}</span>
                 </div>
                 <img className={styles.img} src={state.background_image || state.image} alt="" />
                 <p className={styles.text}>{state.description_raw || state.description}</p>
