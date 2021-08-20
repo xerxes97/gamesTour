@@ -15,3 +15,13 @@
 .icon{
     font-size: 30px;
 }
+
+.icon, .link{
+    text-decoration: none;
+    color: black;
+    transition: 0.5s;
+}
+
+.icon:hover, .link:hover{
+    color: #904acb;
+}

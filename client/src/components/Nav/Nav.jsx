@@ -18,7 +18,9 @@ function Nav(){
     }
 
     function searching(){
-
+        inSearch({
+            search:''
+        })
     }
 
     return(

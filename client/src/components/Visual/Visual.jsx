@@ -113,7 +113,7 @@ function Visual({state, genres, getGenres}){
                     <ul className={styles.filterGenres}>
                         {
                             genres.map(genre=>
-                                <li className={styles.genre} id={genre.id} onClick={()=>filterGenre(genre.name)}>{genre.name}</li>
+                                <li key={genre.id} className={styles.genre} id={genre.id} onClick={()=>filterGenre(genre.name)}>{genre.name}</li>
                             )
                         }
                     </ul>

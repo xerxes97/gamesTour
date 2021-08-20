@@ -49,7 +49,6 @@ function rootReducer(state = initialState, action){
         }
 
         case DETAIL_GAME:{
-            console.log(action.payload.data)
             if(Array.isArray(action.payload.data)){
                 return{
                     ...state,

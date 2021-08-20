@@ -8,8 +8,6 @@ function Details({state, getGameDetails}){
     
     let {id} = useParams();
 
-    console.log(state)
-
     useEffect(()=>{
         getGameDetails(id)
     },[id])

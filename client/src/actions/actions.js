@@ -85,11 +85,9 @@ export const getGamesxName=(search)=>{
 }
 
 export const getGameDetails=(id)=>{
-    console.log('por aqui'+id)
     return function(dispatch){
         return axios.get(`http://localhost:3001/videogames/${id}`)
         .then(game=>{
-            console.log(game)
             dispatch({type: DETAIL_GAME, payload: game})
         })
     }
