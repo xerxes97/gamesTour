@@ -88,9 +88,9 @@ function Creator({genres, platforms, getPlatforms, getGenres, createGame}){
         <div>
             <form className={styles.form} action="" onSubmit={handleSubmit}>
                 <h1 className={styles.title}>{input.name.toLocaleUpperCase()}</h1>
-                <input className={`${styles.input1} ${Errors.name && styles.danger}`} placeholder='Tittle' value={input.name} onChange={handleChange} type="text" name="name" />
-                <input className={`${styles.input2} ${Errors.rating && styles.danger}`} placeholder='Rating' value={input.rating>5? 5 : input.rating<0? 0 : input.rating} onChange={handleChange} type="text" name="rating" /><br/>
-                <input className={styles.input3} placeholder='URL Image' value={input.image} onChange={handleChange} type="text" name="image" /><br/>
+                <input autoComplete='off' className={`${styles.input1} ${Errors.name && styles.danger}`} placeholder='Tittle' value={input.name} onChange={handleChange} type="text" name="name" />
+                <input autoComplete='off' className={`${styles.input2} ${Errors.rating && styles.danger}`} placeholder='Rating' value={input.rating>5? 5 : input.rating<0? 0 : input.rating} onChange={handleChange} type="text" name="rating" /><br/>
+                <input autoComplete='off' className={styles.input3} placeholder='URL Image' value={input.image} onChange={handleChange} type="text" name="image" /><br/>
                 <textarea className={styles.input3} placeholder='Here you can describe your game 😊' value={input.description} onChange={handleChange} name="description" cols="30" rows="10"></textarea><br/>
                 <label htmlFor="">Release date{"\u00a0 \u00a0 \u00a0"}</label>
                 <input value={input.release} onChange={handleChange} type="date" name="release" /><br/>

@@ -48,6 +48,11 @@ function Visual({state, genres, getGenres}){
     function order(e){
         let btn=document.getElementById(e.target.id)
         let dic=btn.textContent
+        // let prueba = document.getElementById('probando')
+        // let prueba2 = document.getElementById('pruebaCrear')
+        // console.log(btn.removeChild(prueba))
+        // console.log(btn.appendChild(prueba2))
+
         let aux={}
 
         if(e.target.name==='down'){

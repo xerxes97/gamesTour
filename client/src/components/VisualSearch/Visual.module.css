@@ -57,3 +57,19 @@
     text-decoration: none;
     color: black;
 }
+
+.active{
+    border: 2px solid #b6b6e6 !important;
+    border-radius: 5px;
+    animation: prueba 3s forwards;
+    box-sizing: border-box;
+}
+
+.pag__item__right{
+    margin-left: 0px !important;
+}
+
+/* @keyframes prueba{
+    0%{background-color: brown;}
+    100%{background-color: chartreuse;}
+} */

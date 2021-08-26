@@ -6,7 +6,7 @@ export default function Footer(){
             <div >
                 <h3>Cristian Camilo Quevedo Silva</h3>
                 <h4>Full Stack Web Developer</h4>
-                <h4>Henry Individual Proyect</h4>                
+                <h4>Games Tour Individual Proyect</h4>                
             </div>
             <div>
                 <div className={styles.known}>

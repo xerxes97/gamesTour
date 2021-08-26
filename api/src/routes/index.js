@@ -23,7 +23,7 @@ router.get('/videogames', async(req, res, next)=>{
     
     if (!search) {
         try {
-            return Promise.all([resultsApi, resultLocalPromise])
+            return await Promise.all([resultsApi, resultLocalPromise])
             .then(results=>{
     
                 var resultLocal= results[1];
@@ -68,7 +68,7 @@ router.get('/videogames', async(req, res, next)=>{
                 include: Genre
             });
     
-            return Promise.all([resultsApi, resultLocalPromise])
+            return await Promise.all([resultsApi, resultLocalPromise])
             .then(results=>{
     
                 var resultLocal= results[1];

@@ -12,8 +12,13 @@ function VisualSearch({state, getGames}){
     const[resultsPage, setResultsPage] = useState(5)
     
     useEffect(()=>{
+        console.log('precarga')
         getGames(prueba);
+        console.log('cargado')
         setCurrentPage(1)
+        // document.getElementsByClassName('Visual_active__2eijh')[0].classList.remove('Visual_active__2eijh')
+        // let page = document.getElementById(1)
+        // page.classList.add('Visual_active__2eijh')
     },[prueba])
     
     const totalResultsPage = currentPage * resultsPage
@@ -35,7 +40,10 @@ function VisualSearch({state, getGames}){
     }
     
     function handlePages(e){
-        setCurrentPage(e.target.id)
+        setCurrentPage(e.target.id) 
+        document.getElementsByClassName('Visual_active__2eijh')[0].classList.remove('Visual_active__2eijh')
+        let page = document.getElementById(e.target.id)
+        page.classList.add('Visual_active__2eijh')
     }    
     
     return(
@@ -71,9 +79,11 @@ function VisualSearch({state, getGames}){
             </div>
                 <div>
                     <ul className={styles.pagination}>
+                        {/* <li className={styles.pag__item}><i className="fas fa-chevron-left"></i></li> */}
                         {
-                            pages.map(number =><li className={styles.pag__item} id={number} onClick={handlePages} key={number}>{number}</li>)
+                            pages.map(number =><li className={`${styles.pag__item} ${number===1 ? styles.active : 'page__number'}`} id={number} onClick={handlePages} key={number}>{number}</li>)
                         }
+                        {/* <li className={`${styles.pag__item} ${styles.pag__item__right}`}><i className="fas fa-chevron-right"></i></li> */}
                     </ul>
                 </div>
         </div>
