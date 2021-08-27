@@ -1,20 +1,21 @@
-<p align='left'>
-    <img src='https://static.wixstatic.com/media/85087f_0d84cbeaeb824fca8f7ff18d7c9eaafd~mv2.png/v1/fill/w_160,h_30,al_c,q_85,usm_0.66_1.00_0.01/Logo_completo_Color_1PNG.webp' </img>
+# GAMES TOUR - START 
+
+<p align="center">
+  <img height="200" src="./sources/gamesTourNav.png" />
 </p>
 
-# Individual Project - Henry Videogames
+## FRONT - END 
+Games Tour es una Single Page Aplication desarrollada como proyecto individual para Henry, esta usa Express para realizar solicitudes al API rawg.io, obtener la data de multiples juegos para traerlas y mostrarlas dentro de la interfaz en el front.
 
-<p align="right">
-  <img height="200" src="./videogame.png" />
-</p>
+  <img height="200" src="./sources/home.png" />
 
-## Objetivos del Proyecto
+Permite realizar ordenamientos por nombre, rating y fecha en que fueron lanzados además también de filtrar por géneros y realizar la paginación en base a la cantidad de resultados obtenidos.
 
-- Construir una App utlizando React, Redux, Node y Sequelize.
-- Afirmar y conectar los conceptos aprendidos en la carrera.
-- Aprender mejores prácticas.
-- Aprender y practicar el workflow de GIT.
-- Usar y practicar testing.
+<div display='flex'>
+  <img height="200" src="./sources/order.png" />
+  <img height="200" src="./sources/filter.png" />
+</div>
+
 
 ## Horarios y Fechas
 
