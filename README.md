@@ -6,8 +6,9 @@
 
 ## Data - API - BASE DE DATOS
 Games Tour es una Single Page Aplication desarrollada como proyecto individual para Henry, esta usa Express para realizar solicitudes al API rawg.io y a una base de datos implementada con el orm Sequalize, obtener la data de multiples juegos para traerlas y mostrarlas dentro de la interfaz en el front.
-
+<P align='center'>
   <img height="300" src="./sources/home.png" />
+</P>
 
 ## FILTROS Y ORDENAMIENTOS
 Permite realizar ordenamientos por nombre, rating y fecha en que fueron lanzados además también de filtrar por géneros y realizar la paginación en base a la cantidad de resultados obtenidos.
